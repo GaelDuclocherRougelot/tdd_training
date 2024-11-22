@@ -2,24 +2,24 @@ version: 2.1
 
 executors:
     # Define the environment where jobs will run
-    composer-executor:
+    php-executor:
         docker:
-            - image: cimg/node:16.14 # Docker image with Node.js
+            - image: cimg/php:8.0 # Docker image with PHP and Composer installed
         working_directory: ~/repo # Working directory inside the container
 
 jobs:
     # Job to install dependencies
     install_dependencies:
-        executor: composer-executor
+        executor: php-executor
         steps:
             - checkout # Checkout your code
             - run:
-                  name: Install dependencies
-                  command: composer install
+                  name: Install Composer dependencies
+                  command: composer install --prefer-dist --no-interaction
 
     # Job to run tests
     run_tests:
-        executor: composer-executor
+        executor: php-executor
         steps:
             - checkout
             - run:
