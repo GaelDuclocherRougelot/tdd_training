@@ -34,7 +34,4 @@ workflows:
             - install_dependencies
             - run_tests:
                   requires:
-                      - install_dependencies # Run tests only after dependencies are installed
-            - deploy:
-                  requires:
-                      - run_tests # Deploy only if tests pass
+                      - install_dependencies
