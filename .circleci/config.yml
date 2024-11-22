@@ -2,7 +2,7 @@ version: 2.1
 
 executors:
     # Define the environment where jobs will run
-    node-executor:
+    composer-executor:
         docker:
             - image: cimg/node:16.14 # Docker image with Node.js
         working_directory: ~/repo # Working directory inside the container
