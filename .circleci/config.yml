@@ -15,7 +15,7 @@ jobs:
             - checkout # Checkout your code
             - run:
                   name: Install Composer dependencies
-                  command: composer install --prefer-dist --no-interaction; composer update
+                  command: composer update
 
     # Job to run tests
     run_tests:
