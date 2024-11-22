@@ -1,0 +1,40 @@
+version: 2.1
+
+executors:
+    # Define the environment where jobs will run
+    node-executor:
+        docker:
+            - image: cimg/node:16.14 # Docker image with Node.js
+        working_directory: ~/repo # Working directory inside the container
+
+jobs:
+    # Job to install dependencies
+    install_dependencies:
+        executor: composer-executor
+        steps:
+            - checkout # Checkout your code
+            - run:
+                  name: Install dependencies
+                  command: composer install
+
+    # Job to run tests
+    run_tests:
+        executor: composer-executor
+        steps:
+            - checkout
+            - run:
+                  name: Run Tests
+                  command: composer run tests
+
+workflows:
+    version: 2
+    # Define the order of job execution
+    build_and_deploy:
+        jobs:
+            - install_dependencies
+            - run_tests:
+                  requires:
+                      - install_dependencies # Run tests only after dependencies are installed
+            - deploy:
+                  requires:
+                      - run_tests # Deploy only if tests pass
